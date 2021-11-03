@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import {getGenres,getVideogames} from "../functions/request"
+import {useDispatch} from "react-redux";
+import {getG,getV} from "../actions";
 
-getVideogames();
-getGenres();
 const Cargando=function({Component,props}){
     const [render,setRender]=useState(false);
+    const dispatch=useDispatch()
+    dispatch(getV());
+    dispatch(getG());
     setTimeout((e)=>setRender(true),20000);
     if(render){
         return (<Component {...props} />)

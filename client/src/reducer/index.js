@@ -6,6 +6,8 @@ const rootReducer=(state = initialState, action)=>{
             return {...state,Genres:action.payload}
         case 'getVideogames':
             return {...state,Videogames:action.payload}
+        case 'searchV':
+            return {...state,search:action.payload}
         case 'create':
             return state;
         default:

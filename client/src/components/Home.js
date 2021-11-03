@@ -1,17 +1,25 @@
 import React, { useState } from "react";
-import { store } from "../store";
+import { useDispatch, useSelector } from "react-redux";
 import { existe, busca } from "../functions/busqueda";
 import OrderSec from "./containers/orden";
 import FiltroSec from "./containers/filtro";
 import Targets from "./containers/targets"
+import Findbar from "./containers/Findbar";
+import { useEffect } from "react";
+import { getG } from "../actions";
 
 const Home=function(){
-    var genres=store.getState().Genres;
+    const dispatch=useDispatch();
+    useEffect(()=>{
+        dispatch(getG());
+    },[])
+
+    var genres=useSelector((state)=>state.Genres);
     const [params,setParams]=useState({
         pagina:1,
         creado:false,
         existente:false,
-        genres:store.getState().Genres,
+        genres:genres,
         swiche:false,
         orden:'Ascendente',
         orderA:false,
@@ -140,6 +148,7 @@ const Home=function(){
 
     return (
         <div>
+            <Findbar />
             <OrderSec order1={order1} order2={order2} />
             <div id='bd'>
                 <Targets parametros={params} />

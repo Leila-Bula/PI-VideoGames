@@ -1,0 +1,30 @@
+import React, { useState } from "react";
+import { useDispatch }  from "react-redux";
+import { searchV } from "../../actions";
+import { useHistory} from "react-router-dom";
+
+const Findbar=function(){
+    const [name,setName]=useState("");
+    const dispatch=useDispatch();
+    const history=useHistory();
+
+    const handleChange=function(e){
+        setName(e.target.value);
+    }
+    const HandleSubmit=function(e){
+        e.preventDefault();
+        dispatch(searchV(name))
+        setTimeout(()=>{history.push(`/home?name=${name}`)},3000); 
+    }
+
+    return (
+        <div>
+            <form name='findV' onSubmit={HandleSubmit}>
+                <input type='text' name='find' value={name} onChange={handleChange}/>
+                <input type='submit' value='Buscar'/>
+            </form>
+        </div>
+    )
+}
+
+export default Findbar;

@@ -12,7 +12,7 @@ function App() {
             <p>Landing page</p>
           </Route>
           <Route exact path='/home'>
-            <Cargando Component={Home} />
+            <Home />
           </Route>
           <Route exact path='/create'>
             <p>Create page</p>
