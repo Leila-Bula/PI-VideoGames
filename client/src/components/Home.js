@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { existe, busca } from "../functions/busqueda";
 import OrderSec from "./containers/orden";
 import FiltroSec from "./containers/filtro";
 import Targets from "./containers/targets"
 import Findbar from "./containers/Findbar";
-import { useEffect } from "react";
-import { getG } from "../actions";
 
 const Home=function(){
-    const dispatch=useDispatch();
-    useEffect(()=>{
-        dispatch(getG());
-    },[])
 
     var genres=useSelector((state)=>state.Genres);
     const [params,setParams]=useState({
@@ -52,7 +46,7 @@ const Home=function(){
     }
 
     const filtroEC=function(e){
-        if(e.target.id==='Existente'){
+        if(e.target.value==='existente'){
             if(params.existente){
                 setParams({
                     ...params,
@@ -66,7 +60,7 @@ const Home=function(){
                     pagina:1
                 })
             }
-        }else if(e.target.id==='Creado'){
+        }else if(e.target.value==='creado'){
             if(params.creado){
                 setParams({
                     ...params,

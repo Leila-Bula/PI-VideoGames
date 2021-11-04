@@ -4,7 +4,7 @@ const filtrador=function(parametros,array){
     if(!(parametros.creado && parametros.existente)){
         if(parametros.creado){
             array=array.filter((v)=>{
-                if(isNaN(v.id)){
+                if(isNaN(String(v.id))){
                     return v;
                 }
             })

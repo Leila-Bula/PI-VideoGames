@@ -1,7 +1,17 @@
 import axios from "axios";
 
 export const createVideogame=function(p){
-    return {type:'create',payload:{...p}}
+    return async function(dispatch){
+        await axios({
+            method: 'post',
+            url: 'http://localhost:3001/videogame',
+            data: {
+              ...p
+            }
+          }).then((r)=>{
+              dispatch({type:'create',payload:{...p,id:r.data.id}})
+          }).catch((e)=>{console.log(e)})
+    }
 }
 
 export const getG=function(){
@@ -14,6 +24,7 @@ export const getG=function(){
 export const getV=function(){
     return async function(dispatch){
         const data=await axios.get('http://localhost:3001/videogames');
+        console.log(data.data.length)
         return dispatch({type:'getVideogames',payload:data.data})
     }
 }

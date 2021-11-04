@@ -3,17 +3,9 @@ import Pagina from "../../functions/paginado";
 import filtrador from "../../functions/filtrando"
 import {store} from "../../store";
 import { useLocation } from "react-router";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getV } from "../../actions";
+import { useSelector } from "react-redux";
 
 const Targets=function({parametros}){
-    const dispatch=useDispatch();
-
-    useEffect(()=>{
-        dispatch(getV());
-    },[]);
-
     var videogames=useSelector((state)=>state.Videogames);
 
     if(useLocation().search){
@@ -26,7 +18,7 @@ const Targets=function({parametros}){
         videogames=filtrador(parametros,videogames);
         return (
             <div>
-                <Pagina array={videogames} p={1} ncp={15} ncf={5} />
+                <Pagina array={videogames} p={parametros.pagina} ncp={15} ncf={5} />
             </div>
         );
     }else{

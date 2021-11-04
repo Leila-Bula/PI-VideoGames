@@ -2,7 +2,7 @@ const { Router } = require('express');
 const axios = require('axios');
 require('dotenv').config();
 const {API_KEY} = process.env;
-const filtrar=require('./filtrar');
+const {filtrar,filtrar2}=require('./filtrar');
 const {Videogame,Gender}=require('../db')
 
 // Importar todos los routers;
@@ -33,16 +33,22 @@ router.get('/videogames',async (req,res)=>{
                 }
             }).catch((e)=>{res.json(e)});
         }else{
-            let promise1=axios.get(`https://api.rawg.io/api/games?&key=${API_KEY}`).then((r)=>{
+            let promise1=axios.get(`https://api.rawg.io/api/games?page_size=40&key=${API_KEY}`).then((r)=>{
                 games=filtrar(r.data.results,r.data.results.length);
             }).catch((e)=>{res.json(e)});
-            let promise2=axios.get(`https://api.rawg.io/api/games?&key=${API_KEY}&page=2`).then((r)=>{
-                games=[...games,...filtrar(r.data.results,r.data.results.length)];
+            let promise2=axios.get(`https://api.rawg.io/api/games?page_size=40&key=${API_KEY}&page=2`).then((r)=>{
+                games=games.concat(filtrar(r.data.results,r.data.results.length));
             }).catch((e)=>{res.json(e)});
-            let promise3=axios.get(`https://api.rawg.io/api/games?&key=${API_KEY}&page=2`).then((r)=>{
-                games=[...games,...filtrar(r.data.results,20)];
+            let promise3=axios.get(`https://api.rawg.io/api/games?page_size=40&key=${API_KEY}&page=3`).then((r)=>{
+                games=games.concat(filtrar(r.data.results,20));
             }).catch((e)=>{res.json(e)});
-            Promise.all([promise1,promise2,promise3]).then((r)=>{
+            let promise4=Videogame.findAll({include: Gender}).then((r)=>{
+                console.log(games.length);
+                games=games.concat(filtrar2(r));
+                console.log(games.length);
+            }).catch((e)=>{res.json(e)});
+            Promise.all([promise1,promise2,promise3,promise4]).then((r)=>{
+                console.log(games.length);
                 res.json(games);
             }).catch((e)=>{res.json(e)});
         }
@@ -104,7 +110,7 @@ router.get('/genres', async (req,res)=>{
 });
 
 router.post('/videogame', async (req,res)=>{
-    const {name,description,released,rating,platforms,genders}=req.body;
+    const {name,description,released,rating,platforms,genres}=req.body;
     try{
         await Videogame.create({
             name:name,
@@ -115,10 +121,10 @@ router.post('/videogame', async (req,res)=>{
         }).then(async (r)=>{
             try{
                 var asignaciones=[];
-                for(let i=0;i<genders.length;i++){
+                for(let i=0;i<genres.length;i++){
                     let [gender,created]=await Gender.findOrCreate({
-                        where: {name:genders[i]},
-                        default: {name:genders[i]}
+                        where: {name:genres[i].name},
+                        default: {name:genres[i].name}
                     });
                     if(gender){
                         asignaciones.push(r.addGender(gender.id));
@@ -126,7 +132,7 @@ router.post('/videogame', async (req,res)=>{
                         asignaciones.push(r.addGender(created.id));
                     }
                 }
-                Promise.all(asignaciones).then((r)=>{res.json({Success: 'Videogame created'})});
+                Promise.all(asignaciones).then((r)=>{res.json({Success: 'Videogame created',id:r[0][0].videogameId})});
             }catch(error){res.json([{Error:'unassigned gender'},error])}
         }).catch((e)=>{res.json(e)});
     }catch(error){res.json(error)}

@@ -1,21 +1,24 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Cargando from './components/cargando';
+import Navbar from './components/Navbar';
 import Home from './components/Home';
+import Landing from './components/Landing';
+import Create from './components/Created';
 
 function App() {
   return (
     <div className="App">
       <Router >
+        <Navbar />
         <Switch>
           <Route exact path='/'>
-            <p>Landing page</p>
+            <Landing />
           </Route>
           <Route exact path='/home'>
             <Home />
           </Route>
           <Route exact path='/create'>
-            <p>Create page</p>
+            <Create />
           </Route>
           <Route exact path='/details/:id' render={(props) =><><p>{props.match.params.id}</p></>} />
         </Switch>
