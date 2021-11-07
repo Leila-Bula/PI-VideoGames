@@ -1,3 +1,4 @@
+import "../CSS/Home.css";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { existe, busca } from "../functions/busqueda";
@@ -117,7 +118,7 @@ const Home=function(){
             if(params.pagina===1){
                 setParams({
                     ...params,
-                    pagina:'ultimapag'
+                    pagina:-1
                 })
             }else{
                 setParams({
@@ -126,7 +127,7 @@ const Home=function(){
                 })
             }
         }else{
-            if(params.pagina==='ultimapag'){
+            if(params.pagina===-1){
                 setParams({
                     ...params,
                     pagina:1
@@ -141,9 +142,9 @@ const Home=function(){
     }
 
     return (
-        <div>
-            <Findbar />
-            <OrderSec order1={order1} order2={order2} />
+        <div className="home">
+            <Findbar/>
+            <OrderSec order1={order1} order2={order2} className="order"/>
             <div id='bd'>
                 <Targets parametros={params} />
                 <FiltroSec filtro1={filtroEC} filtro2={filtroG} paginado={pagnav} />

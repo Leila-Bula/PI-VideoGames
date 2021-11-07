@@ -36,3 +36,11 @@ export const searchV=function(p){
         })
     }
 }
+
+export const videogame=function(p){
+    return async function(dispatch){
+        await axios.get(`http://localhost:3001/videogame/${p}`).then((r)=>{
+            dispatch({type:"videogame",payload:r.data})
+        })
+    }
+}

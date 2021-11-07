@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Landing from './components/Landing';
 import Create from './components/Created';
+import Detail from './components/Details';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <Route exact path='/create'>
             <Create />
           </Route>
-          <Route exact path='/details/:id' render={(props) =><><p>{props.match.params.id}</p></>} />
+          <Route exact path='/details/:id' render={(props) =><><Detail props={props} /></>} />
         </Switch>
       </Router>
     </div>

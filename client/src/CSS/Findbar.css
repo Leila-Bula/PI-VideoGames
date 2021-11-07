@@ -1,0 +1,20 @@
+.findbar {
+    text-align: center;
+    color: #7ca1f9;
+    font-size: 30px;
+}
+
+#button {
+    background-color: #0200df;
+    color: white;
+    border-radius: 10px;
+}
+
+input {
+    color: #0200df;
+}
+
+h1 {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}

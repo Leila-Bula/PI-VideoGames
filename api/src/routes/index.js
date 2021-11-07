@@ -68,7 +68,8 @@ router.get('/videogame/:idVideogame',async (req,res)=>{
             await Videogame.findAll({
                 where: {
                     id:idVideogame
-                }
+                },
+                include: Gender
             }).then((r)=>{
                 res.json(r);
             }).catch((e)=>{res.json(e)})
@@ -110,7 +111,7 @@ router.get('/genres', async (req,res)=>{
 });
 
 router.post('/videogame', async (req,res)=>{
-    const {name,description,released,rating,platforms,genres}=req.body;
+    const {name,description,released,rating,platforms,genres,img,website}=req.body;
     try{
         await Videogame.create({
             name:name,
@@ -118,6 +119,8 @@ router.post('/videogame', async (req,res)=>{
             released:released,
             rating:rating,
             platforms:platforms,
+            img:img,
+            website:website
         }).then(async (r)=>{
             try{
                 var asignaciones=[];

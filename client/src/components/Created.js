@@ -1,3 +1,4 @@
+import "../CSS/Create.css";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createVideogame } from "../actions";
@@ -12,6 +13,8 @@ const Create=function(){
         description: "",
         released: "",
         rating: 0.0,
+        img: "",
+        website: "",
         platforms: "",
         genres: []
     });
@@ -32,7 +35,10 @@ const Create=function(){
     }
 
     const handleClick=function(e){
-        console.log(e)
+        setVideogame({
+            ...videogame,
+            platforms:videogame.platforms+e.target.previousElementSibling.value+","
+        })
     }
 
     const handleSubmit=function(e){
@@ -41,27 +47,33 @@ const Create=function(){
     }
 
     return (
-        <div>
+        <div className="create">
+            <h1>Create your Videogame </h1>
             <form onSubmit={handleSubmit}>
-                <label>Name: </label>
+                <label className="label" >Name: </label>
                 <input type="text" name="name" value={videogame.name} onChange={handleChange} /><br/>
-                <label>Description: </label>
+                <label className="label" >Description: </label>
                 <input type="text" name="description" value={videogame.description} onChange={handleChange} /><br/>
-                <label>Released: </label>
-                <input type="text" name="released" value={videogame.released} onChange={handleChange} /><br/>
-                <label>Rating: </label>
+                <label className="label" >Released: </label>
+                <input type="text" name="released" value={videogame.released} placeholder="aaaa-mm-dd" onChange={handleChange} /><br/>
+                <label className="label" >Rating: </label>
                 <input type="number" name="rating" value={videogame.rating} onChange={handleChange} /><br/>
-                <label>Genders:</label>
+                <label className="label" >Imagen (url): </label>
+                <input type="text" name="img" value={videogame.img} onChange={handleChange} /><br/>
+                <label className="label" >Website: </label>
+                <input type="text" name="webside" value={videogame.webside} onChange={handleChange} /><br/>
+                <label className="label" >Genders:</label>
                 {videogame.genres.map((g)=><span> {g.name} </span>)}
                 <br/>
-                <select multiple={true} name="genres" >
+                <select multiple={true} name="genres" className="select">
                     {genres.map((g)=><option onClick={handleSelect}>{g.name}</option>)}
                 </select><br/>
-                <label>Platforms: </label>
-                <input type="text" name="platforms" value={videogame.platforms} onChange={handleChange}/>
+                <label className="label" >Platforms: </label>
+                <span> {videogame.platforms} </span>
+                <br/><input type="text" name="platforms" />
                 <input type="button" onClick={handleClick} value="+" />
                 <br />
-                <input type="submit" value="Create" />
+                <input type="submit" value="Create" className="boton"/>
             </form>
         </div>
     );

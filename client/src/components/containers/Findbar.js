@@ -1,3 +1,4 @@
+import "../../CSS/Findbar.css";
 import React, { useState } from "react";
 import { useDispatch }  from "react-redux";
 import { searchV } from "../../actions";
@@ -18,10 +19,11 @@ const Findbar=function(){
     }
 
     return (
-        <div>
+        <div className="findbar">
+            <h1>VIDEOGAMES</h1>
             <form name='findV' onSubmit={HandleSubmit}>
                 <input type='text' name='find' value={name} onChange={handleChange}/>
-                <input type='submit' value='Buscar'/>
+                <input type='submit' value='Buscar' id="button" />
             </form>
         </div>
     )

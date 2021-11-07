@@ -1,3 +1,4 @@
+import "../../CSS/Cards.css"
 import React from "react";
 import Pagina from "../../functions/paginado";
 import filtrador from "../../functions/filtrando"
@@ -16,8 +17,11 @@ const Targets=function({parametros}){
 
     if(videogames){
         videogames=filtrador(parametros,videogames);
+        if(parametros.pagina<0){
+            parametros.pagina=(Math.ceil(videogames.length/15)+1)+parametros.pagina;
+        }
         return (
-            <div>
+            <div className="cards" >
                 <Pagina array={videogames} p={parametros.pagina} ncp={15} ncf={5} />
             </div>
         );

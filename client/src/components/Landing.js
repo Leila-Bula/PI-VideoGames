@@ -1,7 +1,6 @@
+import '../CSS/Landing.css';
 import React, { useEffect } from "react";
 import { useHistory } from "react-router";
-import Boton from "./presentational/boton";
-import videogame from "../img/videogames.gif";
 import { useDispatch } from "react-redux"
 import { getG, getV } from "../actions";
 
@@ -19,9 +18,10 @@ const Landing=function(){
         history.push("/home");
     }
     return (
-        <div>
-            <img src={videogame} />
-            <Boton clic={handleClic} text="To Home" />
+        <div className="landing" >
+            <button id="bhome" onClick={handleClic} value="To Home" >
+                START
+            </button>
         </div>
     )
 }

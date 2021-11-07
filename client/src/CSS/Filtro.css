@@ -1,0 +1,56 @@
+.filtro {
+    border: 1px solid #0200df;
+    background-color: black;
+    text-align: center;
+    position: relative;
+    width: 20%;
+    color: #7ca1f9;
+}
+
+.tipo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 42%;
+}
+
+#izquierda {
+    left: 8%;
+    position: relative;
+}
+
+#derecha {
+    right: 8%;
+    left: 8%;
+    position: relative;
+}
+
+#sec1 {
+    display: flex;
+    justify-content: space-evenly;
+    color: white;
+}
+
+#sec2 {
+    display: flex;
+    text-align: justify;
+    color: white;
+}
+
+button {
+    border-radius: 100%;
+    position: relative;
+    margin-left: 6px;
+    bottom: 10px;
+    font-weight: bolder;
+    font-size: medium;
+    background-color: #0200df;
+    color: white;
+}
+
+h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: x-large;
+}
+

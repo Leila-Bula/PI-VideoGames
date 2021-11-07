@@ -1,10 +1,11 @@
 import React from "react";
 import TargetA from "../components/presentational/targetA";
+import { Link } from "react-router-dom";
 
 const Celda=function({array}){
     return (
         <tr>
-            {array.map((e)=><td><TargetA info={e} /></td>)}
+            {array.map((e)=><td><Link to={`/details/${e.id}`} ><TargetA info={e} /></Link></td>)}
         </tr>
     )
 }

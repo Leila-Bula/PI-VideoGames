@@ -4,7 +4,7 @@ import Check from "../presentational/checks";
 
 const OrderSec=function({order1,order2}){
     return (
-        <div>
+        <div className="order">
             <span>Ordenar por: </span>
             <select onChange={order1}>
                 <option>Ascendente</option>

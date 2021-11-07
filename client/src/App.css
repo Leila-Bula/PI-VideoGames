@@ -1,5 +1,10 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 94%;
+  left: 3%;
+  position: relative;
+  font-family: ui-monospace;
 }
 
 .App-logo {
