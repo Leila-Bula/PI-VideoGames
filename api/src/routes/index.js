@@ -71,7 +71,7 @@ router.get('/videogame/:idVideogame',async (req,res)=>{
                 },
                 include: Gender
             }).then((r)=>{
-                res.json(r);
+                res.json(r[0]);
             }).catch((e)=>{res.json(e)})
         }
     }catch(error){

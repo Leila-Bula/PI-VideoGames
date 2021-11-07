@@ -17,7 +17,7 @@ const Detail=function({props}){
     },[]);
 
     if(landing){
-        game=store.getState().detailt[0];
+        game=store.getState().detailt;
         console.log(game)
         if(isNaN(game.id)){
             return (
@@ -25,7 +25,7 @@ const Detail=function({props}){
                     <div>
                         <TargetB game={game} tipo="c" />
                     </div>
-                    <img src={game.background_image} alt={game.name} width="50" />
+                    <img src={game.img} alt={game.name} id="img"/>
                 </div>
             )
         }else{
@@ -34,7 +34,7 @@ const Detail=function({props}){
                     <div>
                         <TargetB game={game} tipo="e" />
                     </div>
-                    <img src={game.img} alt={game.name} width="50" />
+                    <img src={game.background_image} alt={game.name} id="img"/>
                 </div>
             )
         }
