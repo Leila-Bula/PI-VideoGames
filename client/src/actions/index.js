@@ -8,40 +8,60 @@ export const createVideogame=function(p){
             data: {
               ...p
             }
-          }).then((r)=>{
-              dispatch({type:'create',payload:{...p,id:r.data.id}})
-          }).catch((e)=>{console.log(e)})
+        }).then((r)=>{
+            dispatch({type:'create',payload:{...p,id:r.data.id}});
+            return true;
+        }).catch((e)=>{
+            console.log(e);
+            return false;
+        })
     }
 }
 
 export const getG=function(){
     return async function(dispatch){
-        const data=await axios.get('http://localhost:3001/genres');
-        return dispatch({type:'getGenres',payload:data.data})
+        await axios.get('http://localhost:3001/genres').then((r)=>{
+            dispatch({type:'getGenres',payload:r.data});
+            return true;
+        }).catch((e)=>{
+            console.log(e);
+            return false;
+        });
     }
 }
 
 export const getV=function(){
     return async function(dispatch){
-        const data=await axios.get('http://localhost:3001/videogames');
-        console.log(data.data.length)
-        return dispatch({type:'getVideogames',payload:data.data})
+        await axios.get('http://localhost:3001/videogames').then((r)=>{
+            dispatch({type:'getVideogames',payload:r.data});
+            return true;
+        }).catch((e)=>{
+            console.log(e);
+            return false;
+        });
     }
 }
 
 export const searchV=function(p){
     return async function(dispatch){
         await axios.get(`http://localhost:3001/videogames?name=${p}`).then((r)=>{
-            dispatch({type:"searchV",payload:r.data})
-        })
+            dispatch({type:"searchV",payload:r.data});
+            return true;
+        }).catch((e)=>{
+            console.log(e);
+            return false;
+        });
     }
 }
 
 export const videogame=function(p){
     return async function(dispatch){
         await axios.get(`http://localhost:3001/videogame/${p}`).then((r)=>{
-            dispatch({type:"videogame",payload:r.data})
+            dispatch({type:"videogame",payload:r.data});
             return true
-        })
+        }).catch((e)=>{
+            console.log(e);
+            return false;
+        });
     }
 }

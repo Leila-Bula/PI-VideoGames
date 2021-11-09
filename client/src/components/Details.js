@@ -12,13 +12,17 @@ const Detail=function({props}){
     var game={};
 
     useEffect((r)=>{
-        dispatch(videogame(id));
-        setTimeout((r)=>{setLanding(true)},5000)
+        var V=dispatch(videogame(id));
+        if(V){
+            setTimeout((r)=>{setLanding(true)},5000)
+        }else{
+            V=dispatch(videogame(id));
+            setTimeout((r)=>{setLanding(true)},5000);
+        }
     },[]);
 
     if(landing){
         game=store.getState().detailt;
-        console.log(game)
         if(isNaN(game.id)){
             return (
                 <div className="detailt" >

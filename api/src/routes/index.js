@@ -27,33 +27,31 @@ router.get('/videogames',async (req,res)=>{
                     games=filtrar(r.data.results,r.data.results.length);
                 }
                 if(games.length>0){
-                    res.json(games);
+                    res.status(200).json(games);
                 }else{
-                    res.json("No se encontraron coincidencias");
+                    res.status(204).json("No matches found");
                 }
-            }).catch((e)=>{res.json(e)});
+            }).catch((e)=>{res.status(502).json(e)});
         }else{
             let promise1=axios.get(`https://api.rawg.io/api/games?page_size=40&key=${API_KEY}`).then((r)=>{
                 games=filtrar(r.data.results,r.data.results.length);
-            }).catch((e)=>{res.json(e)});
+            }).catch((e)=>{res.status(502).json(e)});
             let promise2=axios.get(`https://api.rawg.io/api/games?page_size=40&key=${API_KEY}&page=2`).then((r)=>{
                 games=games.concat(filtrar(r.data.results,r.data.results.length));
-            }).catch((e)=>{res.json(e)});
+            }).catch((e)=>{res.status(502).json(e)});
             let promise3=axios.get(`https://api.rawg.io/api/games?page_size=40&key=${API_KEY}&page=3`).then((r)=>{
                 games=games.concat(filtrar(r.data.results,20));
-            }).catch((e)=>{res.json(e)});
+            }).catch((e)=>{res.status(502).json(e)});
             let promise4=Videogame.findAll({include: Gender}).then((r)=>{
-                console.log(games.length);
                 games=games.concat(filtrar2(r));
-                console.log(games.length);
-            }).catch((e)=>{res.json(e)});
+            }).catch((e)=>{res.status(500).json(e)});
             Promise.all([promise1,promise2,promise3,promise4]).then((r)=>{
                 console.log(games.length);
-                res.json(games);
-            }).catch((e)=>{res.json(e)});
+                res.status(200).json(games);
+            }).catch((e)=>{res.status(500).json(e)});
         }
     }catch(error){
-        res.json(error);
+        res.status(500).json(error);
     }
 });
 
@@ -63,7 +61,7 @@ router.get('/videogame/:idVideogame',async (req,res)=>{
         if(!isNaN(idVideogame)){
             await axios.get(`https://api.rawg.io/api/games/${idVideogame}?key=${API_KEY}`).then((r)=>{
                 res.json(r.data);
-            }).catch((e)=>{res.json(e)});
+            }).catch((e)=>{res.status(502).json(e)});
         }else{
             await Videogame.findAll({
                 where: {
@@ -71,11 +69,11 @@ router.get('/videogame/:idVideogame',async (req,res)=>{
                 },
                 include: Gender
             }).then((r)=>{
-                res.json(r[0]);
-            }).catch((e)=>{res.json(e)})
+                res.status(200).json(r[0]);
+            }).catch((e)=>{res.status(500).json(e)})
         }
     }catch(error){
-        res.json(error);
+        res.status(500).json(error);
     }
 });
 
@@ -84,10 +82,10 @@ router.get('/genres', async (req,res)=>{
         if(swiche){
             await Gender.findAll().then((r)=>{
                 if(r.length>0){
-                    res.json(r);
+                    res.status(200).json(r);
                 }
-                res.json("There aren´t genders saved");
-            }).catch((e)=>{res.json({Error:'Genders not finds'})});
+                res.status(204).json("There aren´t genders saved");
+            }).catch((e)=>{res.status(500).json({Error:'Genders not finds'})});
         }else{
             swiche=true;
             var genres=[];
@@ -100,14 +98,14 @@ router.get('/genres', async (req,res)=>{
                 await Promise.all(genres).then(async (r)=>{
                     await Gender.findAll().then((r)=>{
                         if(r.length>0){
-                            res.json(r);
+                            res.status(200).json(r);
                         }
-                        res.json("There aren´t genders saved");
-                    }).catch((e)=>{res.json({Error:'Genders not finds'})});
-                }).catch((e)=>{res.json({Error:"Genders not saved"})})
-            }).catch((e)=>{res.json([{Error:'An error occurred while requesting data from the external api'},e])});
+                        res.status(204).json("There aren´t genders saved");
+                    }).catch((e)=>{res.status(500).json({Error:'Genders not finds'})});
+                }).catch((e)=>{res.status(500).json({Error:"Genders not saved"})})
+            }).catch((e)=>{res.status(502).json([{Error:'An error occurred while requesting data from the external api'},e])});
         }
-    }catch(error){res.json(error)}
+    }catch(error){res.status(500).json(error)}
 });
 
 router.post('/videogame', async (req,res)=>{
@@ -135,10 +133,10 @@ router.post('/videogame', async (req,res)=>{
                         asignaciones.push(r.addGender(created.id));
                     }
                 }
-                Promise.all(asignaciones).then((r)=>{res.json({Success: 'Videogame created',id:r[0][0].videogameId})});
-            }catch(error){res.json([{Error:'unassigned gender'},error])}
-        }).catch((e)=>{res.json(e)});
-    }catch(error){res.json(error)}
+                Promise.all(asignaciones).then((r)=>{res.status(200).json({Success: 'Videogame created',id:r[0][0].videogameId})});
+            }catch(error){res.status(500).json([{Error:'unassigned gender'},error])}
+        }).catch((e)=>{res.status(500).json(e)});
+    }catch(error){res.status(500).json(error)}
 });
 
 module.exports = router;

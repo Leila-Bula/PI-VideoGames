@@ -8,7 +8,6 @@ import Targets from "./containers/targets"
 import Findbar from "./containers/Findbar";
 
 const Home=function(){
-
     var genres=useSelector((state)=>state.Genres);
     const [params,setParams]=useState({
         pagina:1,
