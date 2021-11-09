@@ -4,7 +4,8 @@ module.exports=(sequelize)=>{
     sequelize.define('gender',{
         name:{
             type:DataTypes.STRING,
-            allownull:false
+            allownull:false,
+            unique:true
         }
     });
 }
