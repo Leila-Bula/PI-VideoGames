@@ -20,17 +20,20 @@ router.get('/videogames',async (req,res)=>{
     var games=[];
     try{
         if(name){
-            await axios.get(`https://api.rawg.io/api/games?search=${name}&search_precise=true&key=${API_KEY}`).then((r)=>{
+            await axios.get(`https://api.rawg.io/api/games?search=${name}&search_precise=true&key=${API_KEY}`).then(async (r)=>{
                 if(r.data.results.length>=15){
                     games=filtrar(r.data.results,15);
                 }else if(r.data.results.length>0){
                     games=filtrar(r.data.results,r.data.results.length);
                 }
-                if(games.length>0){
-                    res.status(200).json(games);
-                }else{
-                    res.status(204).json("No matches found");
-                }
+                await Videogame.findAll({where: {name:name},include: Gender}).then((r)=>{
+                    games=games.concat(filtrar2(r))
+                    if(games.length>0){
+                        res.status(200).json(games);
+                    }else{
+                        res.status(204).json("No matches found");
+                    }
+                }).catch((e)=>{res.status(500).json({Error: "error"})});
             }).catch((e)=>{res.status(502).json(e)});
         }else{
             let promise1=axios.get(`https://api.rawg.io/api/games?page_size=40&key=${API_KEY}`).then((r)=>{
@@ -42,8 +45,8 @@ router.get('/videogames',async (req,res)=>{
             let promise3=axios.get(`https://api.rawg.io/api/games?page_size=40&key=${API_KEY}&page=3`).then((r)=>{
                 games=games.concat(filtrar(r.data.results,20));
             }).catch((e)=>{res.status(502).json(e)});
-            let promise4=Videogame.findAll({include: Gender}).then((r)=>{
-                games=games.concat(filtrar2(r));
+            let promise4=Videogame.findAll({include: Gender}).then(async (r)=>{
+                games= await games.concat(filtrar2(r));
             }).catch((e)=>{res.status(500).json(e)});
             Promise.all([promise1,promise2,promise3,promise4]).then((r)=>{
                 console.log(games.length);

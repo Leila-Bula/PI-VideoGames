@@ -23,7 +23,7 @@ const TargetB=function({game,tipo}){
             <>
                 <h1 className="name">{game.name}</h1>
                 <span id="id">Id: {game.id}</span><br/>
-                <p>{game.description}</p>
+                <p>{game.description_raw}</p>
                 <h3 className="title">Genders</h3>
                 {game.genres.map((g)=>(<span className="spand"> {g.name} </span>))}
                 <h3 className="title">Platforms</h3>
