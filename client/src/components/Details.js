@@ -14,10 +14,10 @@ const Detail=function({props}){
     useEffect((r)=>{
         var V=dispatch(videogame(id));
         if(V){
-            setTimeout((r)=>{setLanding(true)},5000)
+            setTimeout((r)=>{setLanding(true)},10000)
         }else{
             V=dispatch(videogame(id));
-            setTimeout((r)=>{setLanding(true)},5000);
+            setTimeout((r)=>{setLanding(true)},10000);
         }
     },[]);
 
