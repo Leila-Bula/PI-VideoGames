@@ -1,0 +1,29 @@
+.landing {
+    text-align: center;
+    width: 960px;
+    height: 600px;
+    background-image: url("C:/Users/user/Desktop/Soy Henry/PI-Videogames-main/client/src/img/videogames2.jpg");
+    background-size: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    position: relative;
+    left: 10%;
+    right: 10%
+}
+
+#bhome {
+    background-color: #ff15ff;
+    color: white;
+    font: caption;
+    align-self: center;
+    position: relative;
+    bottom: 50px;
+    font-weight: 700;
+    font-size: x-large;
+    font-family: ui-rounded;
+    border-bottom-width: inherit;
+    border-radius: 40%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}

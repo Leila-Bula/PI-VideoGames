@@ -1,0 +1,33 @@
+.detailt {
+    background-color: black;
+    color: #7ca1f9;
+    display: flex;
+    align-content: space-around;
+    text-align: justify;
+}
+
+.name {
+    font-size: 30px;
+}
+
+.title {
+    margin-bottom: 5px;
+}
+
+.spand {
+    background-color: black;
+    color: white;
+}
+
+#id {
+    font-style: oblique;
+}
+
+p {
+    background-color: black;
+    color: white;
+}
+
+#img {
+    width: 50%;
+}

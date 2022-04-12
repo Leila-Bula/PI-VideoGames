@@ -1,0 +1,45 @@
+.create {
+    background-image: url("../img/fondo.jpg");
+    color: #7ca1f9;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-content: space-around;
+    left: 32.5%;
+    right: 32.5%;
+    width: 480px;
+    height: 500px;
+    text-align: justify;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+}
+
+.label {
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.select {
+    position: relative;
+    left: 15%;
+}
+
+.boton {
+    border-radius: 10px;
+    background-color: #7ca1f9;
+    color: black;
+    font-size: large;
+    position: relative;
+    left: 20%;
+    top: 10%;
+}
+
+input {
+    color: #0200df;
+}

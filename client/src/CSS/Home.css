@@ -1,0 +1,20 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    background-image: url("../img/fondo.jpg");
+    background-size: contain;
+}
+
+#bd {
+    display: flex;
+}
+
+.order {
+    background-color: black;
+    color: #7ca1f9;
+    font-size: small;
+}
+
+select {
+    color: #0200df;
+}
